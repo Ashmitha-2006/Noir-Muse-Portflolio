@@ -1,0 +1,6 @@
+node_modules
+.lovable
+src/lib/lovable-error-reporting.ts
+src/lib/config.server.ts
+src/server.ts
+src/start.ts

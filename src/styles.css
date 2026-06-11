@@ -1,0 +1,208 @@
+@import "tailwindcss" source(none);
+@source "../src";
+@import "tw-animate-css";
+
+@custom-variant dark (&:is(.dark *));
+
+@theme inline {
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --color-gold: var(--gold);
+  --color-gold-soft: var(--gold-soft);
+  --color-gold-deep: var(--gold-deep);
+  --color-ivory: var(--ivory);
+  --color-noir: var(--noir);
+  --font-display: "Cormorant Garamond", serif;
+  --font-sans: "Montserrat", sans-serif;
+}
+
+:root {
+  --radius: 0.625rem;
+  --noir: oklch(0 0 0);
+  --ivory: oklch(0.96 0.005 90);
+  --gold: oklch(0.78 0.13 85);
+  --gold-soft: oklch(0.86 0.08 88);
+  --gold-deep: oklch(0.58 0.12 75);
+  --background: var(--noir);
+  --foreground: var(--ivory);
+  --card: oklch(0.08 0.005 80);
+  --card-foreground: var(--ivory);
+  --popover: oklch(0.06 0.005 80);
+  --popover-foreground: var(--ivory);
+  --primary: var(--gold);
+  --primary-foreground: var(--noir);
+  --secondary: oklch(0.12 0.01 80);
+  --secondary-foreground: var(--ivory);
+  --muted: oklch(0.14 0.01 80);
+  --muted-foreground: oklch(0.65 0.02 85);
+  --accent: var(--gold);
+  --accent-foreground: var(--noir);
+  --destructive: oklch(0.577 0.245 27.325);
+  --destructive-foreground: var(--ivory);
+  --border: oklch(0.78 0.13 85 / 0.18);
+  --input: oklch(0.78 0.13 85 / 0.22);
+  --ring: var(--gold);
+  --sidebar: var(--noir);
+  --sidebar-foreground: var(--ivory);
+  --sidebar-primary: var(--gold);
+  --sidebar-primary-foreground: var(--noir);
+  --sidebar-accent: oklch(0.12 0.01 80);
+  --sidebar-accent-foreground: var(--ivory);
+  --sidebar-border: oklch(0.78 0.13 85 / 0.15);
+  --sidebar-ring: var(--gold);
+}
+
+@layer base {
+  * { border-color: var(--color-border); }
+  body {
+    background-color: var(--color-background);
+    color: var(--color-foreground);
+    font-family: var(--font-sans);
+    cursor: none;
+    overflow-x: hidden;
+  }
+  html { background: #000; }
+  ::selection { background: var(--gold); color: #000; }
+}
+
+/* ── Utilities ── */
+@utility font-display {
+  font-family: var(--font-display);
+  font-weight: 300;
+  letter-spacing: -0.02em;
+}
+@utility text-gold { color: var(--gold); }
+@utility bg-gold { background-color: var(--gold); }
+@utility border-gold { border-color: var(--gold); }
+@utility tracking-luxury { letter-spacing: 0.35em; }
+
+/* ── Animations ── */
+@keyframes marquee-x {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-50%); }
+}
+@utility animate-marquee { animation: marquee-x 32s linear infinite; }
+
+@keyframes gold-shimmer {
+  0%, 100% { opacity: 0.4; }
+  50%       { opacity: 1; }
+}
+@utility animate-shimmer { animation: gold-shimmer 3s ease-in-out infinite; }
+
+@keyframes scroll-line {
+  0%   { transform: scaleY(0); transform-origin: top; }
+  50%  { transform: scaleY(1); transform-origin: top; }
+  51%  { transform-origin: bottom; }
+  100% { transform: scaleY(0); transform-origin: bottom; }
+}
+@utility animate-scroll-line { animation: scroll-line 2.4s ease-in-out infinite; }
+
+@keyframes gold-foil-shift {
+  0%, 100% { background-position: 0% 50%; }
+  50%       { background-position: 100% 50%; }
+}
+
+/* ── Luxury Text System ── */
+
+/* Hero — deep 3D extruded gold with shimmering foil sweep */
+@utility text-luxe-hero {
+  background-image: linear-gradient(
+    100deg,
+    #6b4e16 0%, #b8893a 18%, #f4e2a1 32%,
+    #fff7d6 44%, #e9c971 52%, #b8893a 68%, #6b4e16 100%
+  );
+  background-size: 220% 220%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: transparent;
+  text-shadow:
+    0 1px 0 rgba(201,168,76,0.25),
+    0 2px 0 rgba(140,105,30,0.22),
+    0 4px 0 rgba(90,65,15,0.2),
+    0 8px 24px rgba(201,168,76,0.35),
+    0 20px 60px rgba(201,168,76,0.25);
+  filter: drop-shadow(0 0 30px rgba(201,168,76,0.25));
+  animation: gold-foil-shift 9s ease-in-out infinite;
+}
+
+/* Ivory companion — layered cinema title depth */
+@utility text-luxe-ivory {
+  color: #f6efe1;
+  text-shadow:
+    0 1px 0 #d9cfb8, 0 2px 0 #b8ad94,
+    0 3px 0 #80755f, 0 4px 0 #4d4534,
+    0 6px 14px rgba(0,0,0,0.7),
+    0 14px 40px rgba(0,0,0,0.8);
+}
+
+/* Section headings — engraved gold */
+@utility text-luxe-section {
+  background-image: linear-gradient(
+    180deg,
+    #fff5cc 0%, #e8c97a 35%, #b88a38 75%, #7a5818 100%
+  );
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: transparent;
+  text-shadow:
+    0 1px 0 rgba(255,230,160,0.08),
+    0 2px 18px rgba(201,168,76,0.18);
+  filter: drop-shadow(0 2px 12px rgba(0,0,0,0.6));
+}
+
+/* Italic gold accents */
+@utility text-luxe-italic {
+  background-image: linear-gradient(135deg, #fff2b8, #c9a84c 45%, #8a6620);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: transparent;
+  filter: drop-shadow(0 4px 18px rgba(201,168,76,0.45));
+}
+
+/* Eyebrow / kicker labels */
+@utility text-luxe-eyebrow {
+  background-image: linear-gradient(90deg, #8a6620, #f4e2a1 50%, #8a6620);
+  background-size: 200% 100%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: transparent;
+  animation: gold-foil-shift 6s ease-in-out infinite;
+}
+
+/* ── Global decorative grain overlay ── */
+body::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 9999;
+  opacity: 0.025;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+  background-repeat: repeat;
+  background-size: 128px;
+}
